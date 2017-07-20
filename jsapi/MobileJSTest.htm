@@ -1,0 +1,1614 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>JSAPI测试页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-store, must-revalidate" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT" />
+    <meta http-equiv="expires" content="0" />
+
+    <script src="Scripts/zepto-1.1.6.min.js" type="text/javascript"></script>
+    <script src="Scripts/zepto.touch.min.js" type="text/javascript"></script>
+    <script src="Scripts/jquery-2.1.0.min.js" type="text/javascript"></script>
+    <script src="Scripts/MobileJS-1.0.2.js?v=20170071701" type="text/javascript"></script>
+    <script src="Scripts/mobilejstest.js?v=20170071701" type="text/javascript"></script>
+    <script src="Scripts/AnchorTab.js" type="text/javascript"></script>
+    <script src="Scripts/common.js" type="text/javascript"></script>
+    <script src="Scripts/mDialog.js" type="text/javascript"></script>
+    <script src="Scripts/mScroll.js?v=1" type="text/javascript"></script>
+    <link href="Css/common.css" rel="stylesheet" />
+    <link href="Css/mDialog.css" rel="stylesheet" />
+    <link href="Css/mobileJSTest.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="navMenu" class="displayNone">
+        <ul>
+            <li><a href="#camera">调用系统相机拍照和录像</a></li>
+            <li><a href="#ystCamera">自定义相机拍照和录像，可连拍</a></li>
+            <li><a href="#queryFile">获取文件</a></li>
+            <li><a href="#uploadFile">文件上传</a></li>
+            <li><a href="#downloadFile">文件下载</a></li>
+            <li><a href="#previewFile">文件预览</a></li>
+            <li><a href="#deleteFile">删除文件</a></li>
+            <li><a href="#fileSelector">文件选择器</a></li>
+            <li><a href="#getCode">读取条形码/二维码信息</a></li>
+            <li><a href="#scanIDCard">扫描身份证</a></li>
+            <li><a href="#faceRecognition">人脸识别</a></li>
+            <li><a href="#getGpsInfo">获取GPS信息</a></li>
+            <li><a href="#getLocationInfo">获取位置信息</a></li>
+            <li><a href="#contactBook">访问本机通讯录（未实现？）</a></li>
+            <li><a href="#setIdleTimer">设置屏幕是否自动锁屏（未实现？）</a></li>
+            <li><a href="#getDeviceInfo">获取设备信息</a></li>
+            <li><a href="#quitSys">退出应用</a></li>
+            <li><a href="#getUserInfo">获取登陆用户信息</a></li>
+            <li><a href="#addressBook">访问地址本</a></li>
+            <li><a href="#openUrl">打开网页</a></li>
+            <li><a href="#checkGesturePwd">调用手势密码_二次校验</a></li>
+            <li><a href="#lockScreen">调用手势密码_锁屏</a></li>
+            <li><a href="#navigationBar">隐藏或显示导航栏</a></li>
+            <li><a href="#webWaterMark">隐藏或显示水印</a></li>
+            <li><a href="#singleChat">发起招乎单聊</a></li>
+            <li><a href="#groupChat">发起招乎群聊</a></li>
+            <li><a href="#showContactsUserInfo">查看用户详细信息</a></li>
+            <li><a href="#copyText">复制文本到剪贴板</a></li>
+            <li><a href="#signPicture">手工签名</a></li>
+            <li><a href="#audioRecord">录音</a></li>
+            <li><a href="#zhVideo">调用招呼视频播放</a></li>
+            <li><a href="#shareToWeChat">分享到微信</a></li>
+            <li><a href="#yst_schema">自定义协议获取图片</a></li>
+        </ul>
+    </div>
+
+    <div class="navBar">
+        <span class="menuEnter">功能菜单</span>JSAPI测试页面<span class="quitSys">退出</span>
+    </div>
+
+    <div class="htmlContent">
+        <!--调用系统相机拍照和录像-->
+        <div class="funcBlock" id="camera">
+            <div class="funcTitle">调用系统相机拍照和录像</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">参数设置</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>拍照模式</td>
+                            <td>
+                                <select id="camera_mode" onchange="camera_mode_change()">
+                                    <option value="photo">拍照（photo）</option>
+                                    <option value="video">录像（video）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="camera_photo">
+                            <td>返回类型</td>
+                            <td>
+                                <select id="returntype">
+                                    <option value="0">返回id（0）</option>
+                                    <option value="1">返回id+缩略图（1）</option>
+                                    <option value="2">返回id+原图（2）</option>
+                                    <option value="3">返回id+缩略图+原图（3）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="camera_photo">
+                            <td>限制照片方向</td>
+                            <td>
+                                <select id="orientation">
+                                    <option value="">不限制</option>
+                                    <option value="P">限制竖屏</option>
+                                    <option value="L">限制横屏</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="camera_photo">
+                            <td>图像大小限制(单位KB)</td>
+                            <td><input type="text" id="maxsize" value="500" /></td>
+                        </tr>
+                        <tr class="camera_photo">
+                            <td>是否记录GPS</td>
+                            <td><input type="checkbox" id="recordGPS" /></td>
+                        </tr>
+                        <tr class="camera_photo">
+                            <td>是否记录服务器时间</td>
+                            <td><input type="checkbox" id="recordDate" /></td>
+                        </tr>
+                        <tr class="camera_photo">
+                            <td>是否记录用户信息</td>
+                            <td><input type="checkbox" id="recordUserInfo" /></td>
+                        </tr>
+                        <tr class="camera_photo">
+                            <td>是否记录地址信息</td>
+                            <td><input type="checkbox" id="recordAddress" /></td>
+                        </tr>
+                        <tr class="camera_video displayNone">
+                            <td>录像时长</td>
+                            <td><input type="text" id="maxTime" value="30" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_camera" onclick="testCamera()" value="调用系统相机" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">回调函数结果显示</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>id</td>
+                            <td><div id="imageid"></div></td>
+                        </tr>
+                        <tr>
+                            <td>缩略图</td>
+                            <td><div id="thumbnail"></div></td>
+                        </tr>
+                        <tr>
+                            <td>原图</td>
+                            <td><div id="imagecontent"></div></td>
+                        </tr>
+                        <tr>
+                            <td>文件大小</td>
+                            <td><div id="camera_fileSize"></div></td>
+                        </tr>
+                        <tr>
+                            <td>文件名称</td>
+                            <td><div id="camera_fileName"></div></td>
+                        </tr>
+                        <tr>
+                            <td>文件时间</td>
+                            <td><div id="camera_fileDate"></div></td>
+                        </tr>
+                        <tr>
+                            <td>用户信息</td>
+                            <td><div id="camera_userInfo"></div></td>
+                        </tr>
+                        <tr>
+                            <td>GPS-经度</td>
+                            <td><div id="camera_gps_longitude"></div></td>
+                        </tr>
+                        <tr>
+                            <td>GPS-纬度</td>
+                            <td><div id="camera_gps_latitude"></div></td>
+                        </tr>
+                        <tr>
+                            <td>拍摄地址</td>
+                            <td><div id="camera_address"></div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--自定义相机拍照和录像，可连拍-->
+        <div class="funcBlock" id="ystCamera">
+            <div class="funcTitle">自定义相机拍照和录像，可连拍</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">拍照参数设置</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>拍照模式</td>
+                            <td>
+                                <select id="yst_camera_mode" onchange="yst_camera_mode_change()">
+                                    <option value="photo">拍照（photo）</option>
+                                    <option value="video">录像（video）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>品管文字</td>
+                            <td><input type="text" id="yst_idtext" value="提示文字" /></td>
+                        </tr>
+                        <tr class="yst_camera_photo">
+                            <td>返回类型</td>
+                            <td>
+                                <select id="yst_camera_returntype">
+                                    <option value="0">返回id（0）</option>
+                                    <option value="1">返回id+缩略图（1）</option>
+                                    <option value="2">返回id+原图（2）</option>
+                                    <option value="3">返回id+缩略图+原图（3）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="yst_camera_photo">
+                            <td>限制照片方向</td>
+                            <td>
+                                <select id="yst_camera_orientation">
+                                    <option value="">不限制</option>
+                                    <option value="P">限制竖屏</option>
+                                    <option value="L">限制横屏</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="yst_camera_photo">
+                            <td>拍照起始序号</td>
+                            <td>
+                                <input type="text" id="yst_camera_start" value="1" style="width:50px;" />-<input type="text" id="yst_camera_end" value="9999" style="width:50px;" />
+                            </td>
+                        </tr>
+                        <tr class="yst_camera_photo">
+                            <td>图像大小限制(单位KB)</td>
+                            <td><input type="text" id="yst_camera_maxsize" value="500" /></td>
+                        </tr>
+                        <tr class="yst_camera_photo">
+                            <td>是否记录GPS</td>
+                            <td><input type="checkbox" id="yst_camera_recordGPS" /></td>
+                        </tr>
+                        <tr class="yst_camera_photo">
+                            <td>是否记录服务器时间</td>
+                            <td><input type="checkbox" id="yst_camera_recordDate" /></td>
+                        </tr>
+                        <tr class="camera_photo">
+                            <td>是否记录用户信息</td>
+                            <td><input type="checkbox" id="yst_camera_recordUserInfo" /></td>
+                        </tr>
+                        <tr class="camera_photo">
+                            <td>是否记录地址信息</td>
+                            <td><input type="checkbox" id="yst_camera_recordAddress" /></td>
+                        </tr>
+                        <tr class="yst_camera_video displayNone">
+                            <td>录像时长</td>
+                            <td><input type="text" id="yst_camera_maxTime" value="30" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_ystCamera" onclick="testYstCamera()" value="调用自定义相机" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">拍照返回结果显示</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>id</td>
+                            <td><div id="yst_camera_imageid"></div></td>
+                        </tr>
+                        <tr>
+                            <td>缩略图</td>
+                            <td><div id="yst_camera_thumbnail"></div></td>
+                        </tr>
+                        <tr>
+                            <td>原图</td>
+                            <td><div id="yst_camera_imagecontent"></div></td>
+                        </tr>
+                        <tr>
+                            <td>文件大小</td>
+                            <td><div id="yst_camera_fileSize"></div></td>
+                        </tr>
+                        <tr>
+                            <td>文件名称</td>
+                            <td><div id="yst_camera_fileName"></div></td>
+                        </tr>
+                        <tr>
+                            <td>文件时间</td>
+                            <td><div id="yst_camera_fileDate"></div></td>
+                        </tr>
+                        <tr>
+                            <td>用户信息</td>
+                            <td><div id="yst_camera_userInfo"></div></td>
+                        </tr>
+                        <tr>
+                            <td>GPS-经度</td>
+                            <td><div id="yst_camera_gps_longitude"></div></td>
+                        </tr>
+                        <tr>
+                            <td>GPS-纬度</td>
+                            <td><div id="yst_camera_gps_latitude"></div></td>
+                        </tr>
+                        <tr>
+                            <td>拍摄地址</td>
+                            <td><div id="yst_camera_address"></div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--获取文件-->
+        <div class="funcBlock" id="queryFile">
+            <div class="funcTitle">获取文件</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">获取文件参数设置</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>文件ID</td>
+                            <td><input type="text" id="file_id" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td>文件来源</td>
+                            <td>
+                                <select id="file_source">
+                                    <option value="0">App内部（0）</option>
+                                    <option value="1">App外部（1）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>返回类型</td>
+                            <td>
+                                <select id="file_returntype">
+                                    <option value="0">返回id（0）</option>
+                                    <option value="1">返回id+缩略图（1）</option>
+                                    <option value="2">返回id+原图（2）</option>
+                                    <option value="3">返回id+缩略图+原图（3）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_queryFile" onclick="testQueryFile()" value="获取文件" /></td>
+                        </tr>
+                        <!--<tr>
+                            <td><input type="button" id="btn_uploadFile" onclick="testUploadFile()" value="上传文件" /></td>
+                        </tr>-->
+                    </table>
+                </div>
+                <div class="funcSubTitle">获取文件显示</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>id</td>
+                            <td><div id="file_imageid"></div></td>
+                        </tr>
+                        <tr>
+                            <td>缩略图</td>
+                            <td><div id="file_thumbnail"></div></td>
+                        </tr>
+                        <tr>
+                            <td>原图</td>
+                            <td><div id="file_imagecontent"></div></td>
+                        </tr>
+                        <tr>
+                            <td>文件大小</td>
+                            <td><div id="file_fileSize"></div></td>
+                        </tr>
+                        <tr>
+                            <td>文件名称</td>
+                            <td><div id="file_fileName"></div></td>
+                        </tr>
+                        <tr>
+                            <td>文件时间</td>
+                            <td><div id="file_fileDate"></div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--文件上传-->
+        <div class="funcBlock" id="uploadFile">
+            <div class="funcTitle">文件上传</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">文件上传参数</div>
+                <div class="funcSubTitle" style="text-align:center;background-color:white;">
+                    版本号： <select class="uploadFile_version" onchange="uploadfile_version_change();">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+                <div class="uploadFileInputDiv">
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>上传文件ID</td>
+                            <td>
+                                <input type="text" class="uploadFile_ids" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>上传地址</td>
+                            <td>
+                                <input type="text" class="uploadFile_url" value="http://99.12.43.101/publish/default.aspx" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>上传参数</td>
+                            <td>
+                                <input type="text" class="uploadFile_param" value="string" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>contentType</td>
+                            <td>
+                                <select class="uploadFile_contentType">
+                                    <option value="multipart/form-data">表单方式</option>
+                                    <option value="application/octet-stream">流方式</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="uploadfile_source_tr" style="display:none;">
+                            <td>文件类型</td>
+                            <td>
+                                <select class="uploadFile_source">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <!--<tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_uploadFile" onclick="testUploadFile()" value="文件上传" /></td>
+                        </tr>-->
+                    </table>
+                </div>
+                <input type="button" class="btnSubmit" id="btn_uploadFileMore" onclick="addUploadFileInputClick()" value="添加文件输入框" />
+                <input type="button" class="btnSubmit" id="btn_uploadFile" onclick="testUploadFile()" value="文件上传" />
+                <div class="funcSubTitle">上传结果显示</div>
+                <div id="uploadFile_res" style="min-height:50px;">
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--文件下载-->
+        <div class="funcBlock" id="downloadFile">
+            <div class="funcTitle">文件下载</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">文件下载参数</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>
+                                版本号：
+                            </td>
+                            <td>
+                                <select class="downloadFile_version" onchange="downloadFile_version_change();">
+                                    <option value="1">1(仅支持单文件，不推荐)</option>
+                                    <option value="2">2(支持多文件，推荐)</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="downloadFileInputDiv">
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>下载的文件名（带后缀）</td>
+                            <td>
+                                <select class="dl_fileName" onchange="dl_fileName_change(this);">
+                                    <option value="http://99.12.115.36/app/Android/1.pdf">1.pdf</option>
+                                    <option value="http://99.12.115.36/app/Android/1.doc">1.doc</option>
+                                    <option value="http://99.12.115.36/app/Android/1.docx">1.docx</option>
+                                    <option value="http://99.12.115.36/app/Android/1.xls">1.xls</option>
+                                    <option value="http://99.12.115.36/app/Android/1.xlsx">1.xlsx</option>
+                                    <option value="http://99.12.115.36/app/Android/1.ppt">1.ppt</option>
+                                    <option value="http://99.12.115.36/app/Android/1.pptx">1.pptx</option>
+                                    <option value="http://99.12.115.36/app/Android/1.jpg">1.jpg</option>
+                                    <option value="http://99.12.115.36/app/Android/1.jpeg">1.jpeg</option>
+                                    <option value="http://99.12.115.36/app/Android/1.png">1.png</option>
+                                    <option value="http://99.12.115.36/app/Android/1.bmp">1.bmp</option>
+                                    <option value="http://99.12.115.36/app/Android/1.gif">1.gif</option>
+                                    <option value="http://99.12.115.36/app/Android/1.zip">1.zip</option>
+                                    <option value="http://99.12.115.36/app/Android/3.zip">3.zip</option>
+                                    <option value="http://99.12.115.36/app/Android/1.rar">1.rar</option>
+                                    <option value="http://99.12.115.36/app/Android/1.txt">1.txt</option>
+                                    <option value="http://99.12.115.36/app/Android/1.mp3">1.mp3</option>
+                                    <option value="http://99.12.115.36/app/Android/1.mp4">1.mp4</option>
+                                    <option value="http://99.12.115.36/app/Android/1.avi">1.avi</option>
+                                    <option value="http://99.12.115.36/app/Android/1.wmv">1.wmv</option>
+                                    <option value="http://99.12.115.36/app/Android/1.m4v">1.m4v</option>
+                                    <option value="http://99.12.115.36/app/Android/1.mov">1.mov</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>下载的文件地址</td>
+                            <td>
+                                <input type="text" class="dl_fileUrl" value="http://99.12.115.36/app/Android/1.pdf" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>下载的文件大小(B)</td>
+                            <td>
+                                <input type="text" class="dl_fileSize" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>下载的文件Hash(可选)</td>
+                            <td>
+                                <input type="text" class="dl_fileHash" value="" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <input type="button" class="btnSubmit" id="btn_downloadFileMore" onclick="addDownloadFileInputClick()" value="添加一个文件" style="display:none;" />
+                <input type="button" class="btnSubmit" id="btn_downloadFileDel" onclick="delDownloadFileInputClick()" value="删除一个文件" style="display:none;" />
+                <input type="button" class="btnSubmit" id="btn_downloadFile" onclick="testDownloadFile()" value="下载文件" />
+                <div class="funcSubTitle">文件下载显示</div>
+                <div id="downloadFile_res" style="min-height:50px;">
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--文件预览-->
+        <div class="funcBlock" id="previewFile">
+            <div class="funcTitle">文件预览</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">文件预览参数</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>
+                                版本号：
+                            </td>
+                            <td>
+                                <select class="previewFile_version" onchange="previewFile_version_change();">
+                                    <option value="1">1(仅支持预览App内部文件)</option>
+                                    <option value="2">2(支持预览App和外部相册文件)</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="previewFileVersionOneInputDiv">
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>文件ID</td>
+                            <td>
+                                <input type="text" id="previewFileVersionOne_id" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="previewFileInputDiv" style="display:none;">
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>curIndex</td>
+                            <td>
+                                <input type="text" id="previewFile_curIndex" value="0" />
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="f_content_table previewFileInputDiv_Table" border="0" cellspacing="1">
+                        <tr>
+                            <td>文件ID</td>
+                            <td>
+                                <input type="text" class="previewFile_id" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>source</td>
+                            <td>
+                                <select class="previewFile_source">
+                                    <option value="0">0（App内部）</option>
+                                    <option value="1">1（外部相册）</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <input type="button" class="btnSubmit" id="btn_previewFileMore" onclick="addPreviewFileInputClick()" value="添加文件输入框" style="display:none;" />
+                <input type="button" class="btnSubmit" id="btn_previewFile" onclick="testPreviewFile()" value="文件预览" />
+                <div class="funcSubTitle">文件预览显示</div>
+                <div id="previewFile_res" style="min-height:50px;"></div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--删除文件-->
+        <div class="funcBlock" id="deleteFile">
+            <div class="funcTitle">删除文件</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">删除文件参数设置</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>文件ID</td>
+                            <td><input type="text" id="Text1" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_deleteFile" onclick="testDeleteFile()" value="删除文件" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">删除文件显示</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>id</td>
+                            <td><div id="delfile_imageid"></div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--文件选择器-->
+        <div class="funcBlock" id="fileSelector">
+            <div class="funcTitle">文件选择器</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">文件选择器参数</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>文件类型</td>
+                            <td>
+                                <select id="fileSelector_type">
+                                    <option value="">全部（空）</option>
+                                    <option value="photo">图片（photo）</option>
+                                    <option value="video">视频（video）</option>
+                                    <option value="audio">录音（audio）</option>
+                                    <option value="document">文档（document）</option>
+                                    <option value="other">其他（other）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>最大选取数量</td>
+                            <td>
+                                <input type="text" id="fileSelector_maxCount" value="10" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>版本version</td>
+                            <td>
+                                <select id="fileSelector_version">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_fileSelector" onclick="fileSelector()" value="文件选择器" /></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="funcSubTitle">文件选择器返回结果显示</div>
+                <div id="fileSelector_res" style="min-height:50px;">
+                </div>
+
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--读取条形码/二维码信息-->
+        <div class="funcBlock" id="getCode">
+            <div class="funcTitle">读取条形码/二维码信息</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">参数设置</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>条码模式</td>
+                            <td>
+                                <select id="bar_mode">
+                                    <option value="barCode">条形码（barCode）</option>
+                                    <option value="qrCode">二维码（qrCode）</option>
+                                    <option value="multCode">条形码/二维码（multCode）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_getCode" onclick="testGetCode()" value="读取条形码/二维码信息" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">扫描结果返回</div>
+                <div id="code" style="min-height:50px;">
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--扫描身份证-->
+        <div class="funcBlock" id="scanIDCard">
+            <div class="funcTitle">扫描身份证</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">参数设置</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>图片最大大小</td>
+                            <td>
+                                <input type="text" id="scanIDCard_maxSize" value="500" style="width:50px;" />KB
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_scanIDCard" onclick="testScanIDCard()" value="扫描身份证" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">扫描结果返回</div>
+                <div id="scanIDCard_Result" style="min-height:50px;">
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--人脸识别-->
+        <div class="funcBlock" id="faceRecognition">
+            <div class="funcTitle">人脸识别</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">参数设置</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>摄像头选择</td>
+                            <td>
+                                <select id="faceRecognition_cameraType">
+                                    <option value="0">前置摄像头（0）</option>
+                                    <option value="1">后置摄像头（1）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>识别模式</td>
+                            <td>
+                                <select id="faceRecognition_faceType">
+                                    <option value="0">活体动作检测（0）</option>
+                                    <option value="1">照镜子检测（1）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>关键数字</td>
+                            <td>
+                                <input type="text" id="faceRecognition_keyNum" value="1" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_faceRecognition" onclick="testFaceRecognition()" value="人脸识别" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">人脸识别结果返回</div>
+                <div id="faceRecognition_Result" style="min-height:50px;">
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--获取GPS信息-->
+        <div class="funcBlock" id="getGpsInfo">
+            <div class="funcTitle">获取GPS信息</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">触发获取GPS信息</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>地址本模式</td>
+                            <td>
+                                <select id="getGpsInfo_Mode" onchange="gpsChange();">
+                                    <option value="0">纯经纬度（0）</option>
+                                    <option value="1">经纬度+默认地址（1）</option>
+                                    <option value="2">经纬度+用户选择地址（2）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_getGPSInfo" onclick="testGetGPSInfo()" value="获取GPS信息" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">返回GPS信息</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>经度</td>
+                            <td><input type="text" id="longitude" /></td>
+                        </tr>
+                        <tr>
+                            <td>纬度</td>
+                            <td><input type="text" id="latitude" /></td>
+                        </tr>
+                        <tr class="gps_address_tr">
+                            <td>地址</td>
+                            <td><input type="text" id="address" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--获取位置信息-->
+        <div class="funcBlock" id="getLocationInfo">
+            <div class="funcTitle">获取位置信息</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">触发获取位置信息</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>缩放级别</td>
+                            <td><input type="text" id="location_level" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_getLocationInfo" onclick="testGetLocationInfo()" value="获取位置信息" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">返回位置信息</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>经度</td>
+                            <td><input type="text" id="location_longitude" /></td>
+                        </tr>
+                        <tr>
+                            <td>纬度</td>
+                            <td><input type="text" id="location_latitude" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">位置信息截图</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>截图</td>
+                            <td><div id="location_snapshot"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td>地址</td>
+                            <td><div id="location_address"></div></td>
+
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--访问本机通讯录（未实现？）-->
+        <div class="funcBlock" id="contactBook">
+            <div class="funcTitle">访问本机通讯录（未实现？）</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">访问通讯录参数设置</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>选取最大记录数</td>
+                            <td><input type="text" id="contact_maxsize" value="10" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_contactBook" onclick="testContactBook()" value="访问通讯录" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">返回通讯录信息</div>
+                <div id="contact_list" style="height:50px;"></div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--设置屏幕是否自动锁屏（未实现？）-->
+        <div class="funcBlock" id="setIdleTimer">
+            <div class="funcTitle">设置屏幕是否自动锁屏</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">屏幕是否自动锁屏参数设置</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>禁用自动锁屏</td>
+                            <td><input type="checkbox" id="disable" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_setIdletimer" onclick="testSetIdleTimer()" value="设置是否锁屏" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--获取设备信息-->
+        <div class="funcBlock" id="getDeviceInfo">
+            <div class="funcTitle">获取设备信息</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">触发获取设备信息</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_getDeviceInfo" onclick="testGetDeviceInfo()" value="获取设备信息" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">返回设备信息</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>系统类型</td>
+                            <td><input type="text" id="osType" /></td>
+                        </tr>
+                        <tr>
+                            <td>系统版本</td>
+                            <td><input type="text" id="osVersion" /></td>
+                        </tr>
+                        <tr>
+                            <td>APP公开版本号</td>
+                            <td><input type="text" id="appPublishVersion" /></td>
+                        </tr>
+                        <tr>
+                            <td>APP内部编译版本号</td>
+                            <td><input type="text" id="appBuildVersion" /></td>
+                        </tr>
+                        <tr>
+                            <td>设备ID</td>
+                            <td><input type="text" id="deviceId" /></td>
+                        </tr>
+                        <tr>
+                            <td>设备型号</td>
+                            <td><input type="text" id="deviceName" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--退出应用-->
+        <div class="funcBlock" id="quitSys">
+            <div class="funcTitle">退出应用</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">触发退出应用</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_quitSys" onclick="testQuitSys()" value="退出应用" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--获取登陆用户信息-->
+        <div class="funcBlock" id="getUserInfo">
+            <div class="funcTitle">获取登陆用户信息</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">触发获取登陆用户信息</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_getUserInfo" onclick="testGetUserInfo()" value="获取登陆用户信息" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">返回登陆用户信息</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>登陆用户一事通ID</td>
+                            <td><input type="text" id="ystId" /></td>
+                        </tr>
+                        <tr>
+                            <td>登陆用户员工号</td>
+                            <td><input type="text" id="sapId" /></td>
+                        </tr>
+                        <tr>
+                            <td>登陆用户姓名</td>
+                            <td><input type="text" id="login_name" /></td>
+                        </tr>
+                        <tr>
+                            <td>机构ID</td>
+                            <td><input type="text" id="login_orgId" /></td>
+                        </tr>
+                        <tr>
+                            <td>机构名称</td>
+                            <td><input type="text" id="login_orgName" /></td>
+                        </tr>
+                        <tr>
+                            <td>机构ID路径</td>
+                            <td><input type="text" id="login_pathId" /></td>
+                        </tr>
+                        <tr>
+                            <td>机构名称路径</td>
+                            <td><input type="text" id="login_pathName" /></td>
+                        </tr>
+                        <tr>
+                            <td>邮件地址</td>
+                            <td><input type="text" id="login_emailId" /></td>
+                        </tr>
+                        <tr>
+                            <td>岗位</td>
+                            <td><input type="text" id="login_position" /></td>
+                        </tr>
+                        <tr>
+                            <td>手机</td>
+                            <td><input type="text" id="login_mobile" /></td>
+                        </tr>
+                        <tr>
+                            <td>座机</td>
+                            <td><input type="text" id="login_tel" /></td>
+                        </tr>
+                        <tr>
+                            <td>登陆用户登陆时间</td>
+                            <td><input type="text" id="loginTime" /></td>
+                        </tr>
+                        <tr>
+                            <td>登陆用户登陆模式</td>
+                            <td><input type="text" id="loginMode" /></td>
+                        </tr>
+                        <tr>
+                            <td>登陆用户缩略图</td>
+                            <td><div id="login_smallPhotoData"></div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--访问地址本-->
+        <div class="funcBlock" id="addressBook">
+            <div class="funcTitle">访问地址本</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">访问地址本参数设置</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>地址本模式</td>
+                            <td>
+                                <select id="addressBook_Mode" onchange="abChange();">
+                                    <option value="user">人员选择模式（user）</option>
+                                    <option value="dept">机构选择模式（dept）</option>
+                                    <option value="email">邮件地址本选择模式（email）</option>
+                                    <!--<option value="hail">招呼地址本选择模式（hail）</option>
+                                    <option value="hail_fwd">招呼转发选择模式（hail_fwd）</option>-->
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>地址本根节点ID</td>
+                            <td><input type="text" id="rootOrgId" /></td>
+                        </tr>
+                        <tr>
+                            <td>地址本根节点名称</td>
+                            <td><input type="text" id="rootOrgName" /></td>
+                        </tr>
+                        <tr>
+                            <td>已选数据(机构/人员)</td>
+                            <td><input type="text" id="selectedData" /></td>
+                        </tr>
+                        <tr>
+                            <td>最大选取数量</td>
+                            <td><input type="text" id="maxCount" value="10" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_addressBook" onclick="testAddressBook()" value="访问地址本" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">访问地址本返回结果显示</div>
+                <div id="addressBook_res" style="min-height:50px;">
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+                <!--<div class="codeExampleContent">
+                            <pre>
+                                <code class="language-javascript" id="Code9">
+
+                //******************************待完善*************
+
+                //访问地址本
+                function testAddressBook() {
+                    var option = {
+                        callback: "testAddressBookCallBack",
+                        asyncData: "",
+                        mode: "user",
+                        rootOrgId: "100001",
+                        rootOrgName: "招商银行",
+                        selected: [],
+                        maxCount: 10
+                    }
+                    MobileJS.addressBook(option);
+                }
+
+                //访问地址本回调函数
+                function testAddressBookCallBack(option) {
+                    try{
+                        var retObj = option;
+                        if (retObj.retCode &lt; 0) {
+                            alert("错误信息：" + retObj.retMsg);
+                            return;
+                        }
+                        else {
+                            //user通过以下结构可以获取返回信息
+                            for(var i=0;i&lt;retObj.data.length;i++){
+                                //retObj.data[i].userId
+                                //retObj.data[i].userName
+                                //retObj.data[i].orgId
+                                //retObj.data[i].sapId
+                                //retObj.data[i].pathName
+                                //retObj.data[i].pathId
+                                //retObj.data[i].emailId
+                                //retObj.data[i].position
+                            }
+                            //dept通过以下结构可以获取返回信息
+                            for(var i=0;i&lt;retObj.data.length;i++){
+                                //retObj.data[i].orgId
+                                //retObj.data[i].groupId
+                                //retObj.data[i].groupName
+                                //retObj.data[i].pathId
+                                //retObj.data[i].pathName
+                            }
+                            //email通过以下结构可以获取返回信息
+                            for(var i=0;i&lt;retObj.data.length;i++){
+                                //retObj.data[i].name
+                                //retObj.data[i].email
+                            }
+                            //hail通过以下结构可以获取返回信息
+                            for(var i=0;i&lt;retObj.data.length;i++){
+                                //retObj.data[i].HailNO
+                                //retObj.data[i].UserName
+                            }
+                            //hail_fwd通过以下结构可以获取返回信息
+                            for(var i=0;i&lt;retObj.data.length;i++){
+                                //retObj.data[i].FwdType
+                                //retObj.data[i].FwdID
+                                //retObj.data[i].FwdName
+                            }
+                        }
+                    }catch(err){
+                        alert("回调错误，原因["+err.message+"]");
+                        return;
+                    }
+                }
+                                </code>
+                            </pre>
+                        </div>-->
+            </div>
+        </div>
+
+        <!--打开网页-->
+        <div class="funcBlock" id="openUrl">
+            <div class="funcTitle">打开网页</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">打开网页参数设置</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>系统ID</td>
+                            <td><input type="text" id="openurl_id" /></td>
+                        </tr>
+                        <tr>
+                            <td>网页集成登陆方式</td>
+                            <td>
+                                <select id="openurl_webtype">
+                                    <option value="0">无集成登陆（0）</option>
+                                    <option value="1">sessionID GET方式（1）</option>
+                                    <option value="2">sessionID COOKIE方式（2）</option>
+                                    <option value="3">集成登陆GET方式（3）</option>
+                                    <option value="4">集成登陆COOKIE方式（4）</option>
+                                    <option value="5">集成登陆GET方式适配旧移动展业（5，废弃）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>网页标题</td>
+                            <td><input type="text" id="openurl_title" value="移动任务" /></td>
+                        </tr>
+                        <tr>
+                            <td>网页地址</td>
+                            <td><input type="text" id="openurl_url" value="http://99.1.101.6/MobileTask/FakeLogin.aspx" /></td>
+                        </tr>
+                        <!--<tr>
+                            <td>是否显示底部工具栏</td>
+                            <td>
+                                <select id="openurl_webtoolbar">
+                                    <option value="Y">是</option>
+                                    <option value="N">否</option>
+                                </select>
+                            </td>
+                        </tr>-->
+                        <tr>
+                            <td>是否显示顶部导航栏</td>
+                            <td>
+                                <select id="openurl_navbar">
+                                    <option value="Y">是</option>
+                                    <option value="N">否</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>页面方向</td>
+                            <td>
+                                <select id="openurl_orientation">
+                                    <option value="">不限</option>
+                                    <option value="L">横屏</option>
+                                    <option value="P">竖屏</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_openUrl" onclick="testOpenUrl()" value="打开网页" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--调用手势密码_二次校验-->
+        <div class="funcBlock" id="checkGesturePwd">
+            <div class="funcTitle">调用手势密码_二次校验</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">触发调用手势密码_二次校验</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_checkGesturePwd" onclick="testCheckGesturePwd()" value="调用手势密码_二次校验" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+        
+        <!--调用手势密码_锁屏-->
+        <div class="funcBlock" id="lockScreen">
+            <div class="funcTitle">调用手势密_锁屏</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">触发调用手势密码_锁屏</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_lockScreen" onclick="testLockScreen()" value="调用手势密码_锁屏" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--隐藏或显示导航栏-->
+        <div class="funcBlock" id="navigationBar">
+            <div class="funcTitle">隐藏或显示导航栏</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">隐藏显示导航栏参数</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>是否动画</td>
+                            <td>
+                                <select id="id_animate">
+                                    <option value="Y">是（Y）</option>
+                                    <option value="N">否（N）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdSubmit"><input type="button" class="btnSubmit" id="navigationBar_hidden" onclick="testNavHidden()" value="隐藏导航" /></td>
+                            <td class="tdSubmit"><input type="button" class="btnSubmit" id="navigationBar_show" onclick="testNavShow()" value="显示导航" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--隐藏或显示水印-->
+        <div class="funcBlock" id="webWaterMark">
+            <div class="funcTitle">隐藏或显示水印</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">隐藏或显示水印参数</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td class="tdSubmit"><input type="button" class="btnSubmit" id="waterMark_hidden" onclick="testWebWaterMarkHidden()" value="隐藏水印" /></td>
+                            <td class="tdSubmit"><input type="button" class="btnSubmit" id="waterMark_show" onclick="testWebWaterMarkShow()" value="显示水印" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--发起招乎单聊-->
+        <div class="funcBlock" id="singleChat">
+            <div class="funcTitle">发起招乎单聊</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">发起招乎单聊参数</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>一事通ID/SAPID</td>
+                            <td>
+                                <input type="text" id="singchat_id" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_singlechat" onclick="testSingleChat()" value="发起单聊" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--发起招乎群聊-->
+        <div class="funcBlock" id="groupChat">
+            <div class="funcTitle">发起招乎群聊</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">发起招乎群聊参数</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>群组ID</td>
+                            <td>
+                                <input type="text" id="groupchat_id" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_groupchat" onclick="testGroupChat()" value="发起群聊" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--查看用户详细信息-->
+        <div class="funcBlock" id="showContactsUserInfo">
+            <div class="funcTitle">查看用户详细信息</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">发起查看用户详细信息参数</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>一事通ID/SAPID</td>
+                            <td>
+                                <input type="text" id="showContactsUser_id" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_showContactsUserInfo" onclick="testShowContactsUserInfo()" value="查看用户详情" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--复制文本到剪贴板-->
+        <div class="funcBlock" id="copyText">
+            <div class="funcTitle">复制文本到剪贴板</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">复制文本到剪贴板参数</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>待复制的文本</td>
+                            <td>
+                                <input type="text" id="copyText_text" value="http://99.12.115.36/kj84nmdo28?asd=2&dsf=测试中文&d=测试特殊字符~！@#￥&*￥" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_copyText" onclick="copyText()" value="复制文本到剪贴板" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">复制文本到剪贴板测试输入框</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td colspan="2"><input type="text" id="copyText_test" value="" style="width:90%;" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--手工签名-->
+        <div class="funcBlock" id="signPicture">
+            <div class="funcTitle">手工签名</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">触发手工签名</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>待签名图片url</td>
+                            <td>
+                                <select id="signPicture_url" style="width:180px;">
+                                    <option value="http://99.12.115.36/app/android/letter.jpg">../app/android/letter.jpg</option>
+                                    <option value="http://99.12.115.36/app/android/W.png">../app/android/W.png</option>
+                                    <option value="http://99.12.115.36/app/android/H.png">../app/android/H.png</option>
+                                    <option value="http://99.12.115.36/app/android/WH.png">../app/android/WH.png</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>签名区域坐标</td>
+                            <td>
+                                left：<input type="text" id="signPicture_left" value="0" style="width:40px;" />top：<input type="text" id="signPicture_top" value="0" style="width:40px;" /><br />
+                                right：<input type="text" id="signPicture_right" value="200" style="width:40px;" />bottom：<input type="text" id="signPicture_bottom" value="100" style="width:40px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>图片最大大小限制</td>
+                            <td>
+                                <input type="text" id="signPicture_maxSize" value="500"style="width:60px;" />KB
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_signPicture" onclick="testSignPicture()" value="手工签名" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle">返回手工签名信息</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>id</td>
+                            <td><div id="signPicture_image_id"></div></td>
+                        </tr>
+                        <tr>
+                            <td>签名后图片</td>
+                            <td><div id="signPicture_image"></div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="funcSubTitle codeExampleTitle">参考代码片段</div>
+            </div>
+        </div>
+
+        <!--调用录音-->
+        <div class="funcBlock" id="audioRecord">
+            <div class="funcTitle">调用录音</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">触发调用录音</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_audioRecordTest" onclick="testaudioRecord()" value="调用录音" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>id</td>
+                            <td><div id="audio_record_id"></div></td>
+                        </tr>
+                        <tr>
+                            <td>文件大小</td>
+                            <td><div id="audio_record_fileSize"></div></td>
+                        </tr>
+                        <tr>
+                            <td>文件名称</td>
+                            <td><div id="audio_record_fileName"></div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--跳转招呼视频接口-->
+        <div class="funcBlock" id="zhVideo">
+            <div class="funcTitle">调用招呼视频播放</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">触发招呼视频播放</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_zhVideoTest" onclick="testZhVideo()" value="调用招呼视频播放" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>间ID或点播视频ID</td>
+                            <td><input type="text" id="zh_video_live_id" /></td>
+                        </tr>
+                        <tr>
+                            <td>业务类型</td>
+                            <td>
+                                <select id="zh_video_media_type">
+                                    <option value="0">直播:live</option>
+                                    <option value="1">点播:vod</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>令牌token</td>
+                            <td><input type="text" id="zh_video_token" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+        
+        <!--分享到微信-->
+        <div class="funcBlock" id="shareToWeChat">
+            <div class="funcTitle">分享到微信</div>
+            <div class="funcContent">
+                <div class="funcSubTitle">发起分享到微信的参数</div>
+                <div>
+                    <table class="f_content_table" border="0" cellspacing="1">
+                        <tr>
+                            <td>图片Url</td>
+                            <td>
+                                <input type="text" id="shareToWeChat_imageUrl" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>标题</td>
+                            <td>
+                                <input type="text" id="shareToWeChat_title" value="Hello World！" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>描述</td>
+                            <td>
+                                <input type="text" id="shareToWeChat_description" value="我是描述" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>网页Url</td>
+                            <td>
+                                <input type="text" id="shareToWeChat_url" value="http://www.baidu.com" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>分享到（0会话，1朋友圈）</td>
+                            <td>
+                                <select id="shareToWeChat_scene" style="width:80px;">
+                                    <option value="0">0：会话</option>
+                                    <option value="1" selected="selected">1：朋友圈</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdSubmit"><input type="button" class="btnSubmit" id="btn_shareToWeChat" onclick="testShareToWeChat()" value="分享到微信" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="codeExampleTitle">参考代码请登录http://dev.mo.cmbchina.cn的JS-SDK页面</div>
+            </div>
+        </div>
+
+        <!--自定义协议获取文件-->
+        <div class="funcBlock" id="yst_schema">
+            <div class="funcTitle">自定义协议获取文件</div>
+            <div class="funcContent">
+                图片ID:<input type="text" id="resFile_FileId" value="" />
+                <div>
+                    width:<input type="text" id="resFile_thum_width" value="100" /><br /><br />
+                    height:<input type="text" id="resFile_thum_height" value="100" /><br /><br />
+                    <input type="button" id="thumbnailResFile" onclick="testThumbnailResFile()" value="缩略图" /><br /><br />
+                    <img id="thumbnailResFile_img" src="" alt="缩略图" /><br /><br />
+                    压力测试次数:<input type="text" id="resFile_thum_times" value="500" /><br /><br />
+                    <input type="button" id="thumbnailResFile" onclick="testThumbnailResFileTimes()" value="压力测试" />
+                    <div id="thumbnailResFile_imgs"></div>
+                </div>
+                <div>
+                    <input type="button" id="originalResFile" onclick="testOriginalResFile()" value="原图" />
+                    <img id="originalResFile_img" src="" alt="原图" />
+                </div>
+                <div>
+                    <input type="button" id="deleteResFile" onclick="testDeleteResFile()" value="删除图片" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $("#navMenu ul li a").click(function () {
+                mDialog.close();
+            });
+            $(".menuEnter").click(function () {
+                mDialog.showDialog({
+                    showType: 'rightwnd',
+                    title: '功能菜单',
+                    loadbyid: true,
+                    contentObj: $("#navMenu"),
+                    width: 250
+                });
+            })
+            $(".quitSys").click(function () {
+                testQuitSys();
+            })
+        })
+    </script>
+
+</body>
+</html>

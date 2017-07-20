@@ -1,0 +1,950 @@
+﻿/** 清除内外边距 **/
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */ dl, dt, dd, ul, ol, li, /* list elements 列表元素 */ pre, /* text formatting elements 文本格式元素 */ form, fieldset, legend, button, textarea, /* form elements 表单元素*/ /* 去除input，input不要重置margin。 -- fep/20130304 */ th, td /* table elements 表格元素 */ { margin: 0; padding: 0; }
+
+/** 设置默认字体 **/
+body, table, td, input, option, div, span, textarea { font-size: 14px; font-family: 宋体; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; }
+address, cite, dfn, em, var { font-style: normal; }
+/* 将斜体扶正 */
+code, kbd, pre, samp { font-family: courier new, courier, monospace; }
+/* 统一等宽字体 */
+small { font-size: 12px; }
+/* 小于 12px 的中文很难阅读，让 small 正常化 */
+
+/** 重置列表元素 **/
+ul, ol { list-style: none; }
+
+/** 重置文本格式元素 **/
+a { text-decoration: none; }
+
+sup { vertical-align: text-top; }
+/* 重置，减少对行高的影响 */
+sub { vertical-align: text-bottom; }
+
+/** 重置表单元素 **/
+legend { color: #000; }
+/* for ie6 */
+fieldset, img { border: 0; }
+/* img 搭车：让链接里的 img 无边框 */
+button, input, select, textarea { font-size: 100%; }
+/* 使得表单元素在 ie 下能继承字体大小 */
+/* 注：optgroup 无法扶正 */
+
+/** 重置表格元素 **/
+table { border-collapse: collapse; border-spacing: 0; }
+
+/**--------------------- end 重置 -------------------**/
+/* HTML5 display definitions
+   ========================================================================== */
+/*input{
+    -webkit-user-modify:read-write-plaintext-only;
+}
+input:focus{-webkit-tap-highlight-color:rgba(255,255,255,0);}*/
+html{
+   /*字体的优化，解决ios横竖屏字体加粗不一致*/
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+/**
+ * Correct `block` display not defined in IE 8/9.
+ */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
+}
+
+/**
+ * 1. Correct `inline-block` display not defined in IE 8/9.
+ * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ */
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; /* 1 */
+  vertical-align: baseline; /* 2 */
+}
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+/**
+ * Address `[hidden]` styling not present in IE 8/9.
+ * Hide the `template` element in IE, Safari, and Firefox < 22.
+ */
+
+[hidden],
+template {
+  display: none;
+}
+
+/* Links
+   ========================================================================== */
+
+/**
+ * Remove the gray background color from active links in IE 10.
+ */
+
+a {
+  background: transparent;
+}
+
+/**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+/* Text-level semantics
+   ========================================================================== */
+
+/**
+ * Address styling not present in IE 8/9, Safari 5, and Chrome.
+ */
+
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari 5, and Chrome.
+ */
+
+b,
+strong {
+  font-weight: bold;
+}
+
+/**
+ * Address styling not present in Safari 5 and Chrome.
+ */
+
+dfn {
+  font-style: italic;
+}
+
+/**
+ * Address styling not present in IE 8/9.
+ */
+
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+/* Embedded content
+   ========================================================================== */
+
+/**
+ * Correct overflow displayed oddly in IE 9.
+ */
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* Grouping content
+   ========================================================================== */
+
+/**
+ * Address margin not present in IE 8/9 and Safari 5.
+ */
+
+figure {
+  margin: 1em 40px;
+}
+
+/**
+ * Address differences between Firefox and other browsers.
+ */
+
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+/**
+ * Contain overflow in all browsers.
+ */
+
+pre {
+  overflow: auto;
+}
+
+/**
+ * Address odd `em`-unit font size rendering in all browsers.
+ */
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+/* Forms
+   ========================================================================== */
+
+/**
+ * Known limitation: by default, Chrome and Safari on OS X allow very limited
+ * styling of `select`, unless a `border` property is set.
+ */
+
+/**
+ * 1. Correct color not being inherited.
+ *    Known issue: affects color of disabled elements.
+ * 2. Correct font properties not being inherited.
+ * 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit; /* 1 */
+  font: inherit; /* 2 */
+  margin: 0; /* 3 */
+}
+
+/**
+ * Address `overflow` set to `hidden` in IE 8/9/10.
+ */
+
+button {
+  overflow: visible;
+}
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Firefox, IE 8+, and Opera
+ * Correct `select` style inheritance in Firefox.
+ */
+
+button,
+select {
+  text-transform: none;
+}
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button; /* 2 */
+  cursor: pointer; /* 3 */
+}
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+
+input {
+  line-height: normal;
+}
+
+/**
+ * It's recommended that you don't attempt to style these elements.
+ * Firefox's implementation doesn't respect box-sizing, padding, or width.
+ *
+ * 1. Address box sizing set to `content-box` in IE 8/9/10.
+ * 2. Remove excess padding in IE 8/9/10.
+ */
+
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
+/**
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`.
+ */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
+ *    (include `-moz` to future-proof).
+ */
+
+input[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box; /* 2 */
+  box-sizing: content-box;
+}
+
+/**
+ * Remove inner padding and search cancel button in Safari and Chrome on OS X.
+ * Safari (but not Chrome) clips the cancel button when the search input has
+ * padding (and `textfield` appearance).
+ */
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * Define consistent border, margin, and padding.
+ */
+
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+/**
+ * 1. Correct `color` not being inherited in IE 8/9.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+
+legend {
+  border: 0; /* 1 */
+  padding: 0; /* 2 */
+}
+
+/**
+ * Remove default vertical scrollbar in IE 8/9.
+ */
+
+textarea {
+  overflow: auto;
+}
+
+/**
+ * Don't inherit the `font-weight` (applied by a rule above).
+ * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
+ */
+
+optgroup {
+  font-weight: bold;
+}
+
+button{
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+@media print {
+	.noPrint { display: none; }
+}
+.displayNone { display: none; }
+.fl { float: left; }
+.fr { float: right; }
+.fl::after .fr::after{
+content: '\20'; display: block; height: 0; clear: both;
+}
+.unselectable
+{
+	-moz-user-select: -moz-none;/* for Firefox */
+	-webkit-user-select: none; /* for Chrome */
+    -khtml-user-select: none;
+    user-select: none;
+}
+/** 布局基础样式 **/
+.col-main { float: left; width: 100%; /* bug fix: 主栏没有内容时，在 Firefox 和 Chrome 等浏览器下，布局不对 */ min-height: 1px; }
+.col-sub, .col-extra { float: left; /*position: relative;  按需设置，仅在需要时添加 */ }
+.layout:after, .main-wrap:after, .col-sub:after, .col-extra:after { content: '\20'; display: block; height: 0; clear: both; }
+.layout, .main-wrap, .col-sub, .col-extra { *zoom:1;}
+.inputtip { position: absolute; color: #acacac; top: 0; left: 8px; font-size:18px;}
+.editVal { position: relative; display:block; }
+.clearboth { clear: both; }
+
+/*loading css*/
+#loadingShadow { z-index: 10003; /*position: absolute;*/position:fixed; background-color: #EEE; filter: alpha(opacity=75); opacity: 0.75; width: 100%; height: 100%; left: 0px; top: 0px; }
+#loadingDiv { z-index: 10004; position: absolute; /*position: fixed;*/  height: 35px; width: 90%; margin:-17px 0 0 -45%; text-align: center; vertical-align: middle; left:50%; top:50%; }
+.loadingMsg { border: solid 1px #AAA; padding: 6px 10px; display: inline-block; background: #fff; /*box-shadow: 0 1px 2px #292929; -webkit-box-shadow: 0 1px 2px #292929; -moz-box-shadow: 0 1px 2px #292929; -o-box-shadow: 0 1px 2px #292929;*/ font-size: 12px; }
+.loadingText { zoom: 1; display: inline-block; vertical-align: middle; padding-left: 6px; height: 15px; color: #333; }
+
+@-webkit-keyframes auto-circle{
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes auto-circle{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+.loadingImg { position: relative; width: 15px; height: 15px; animation: auto-circle 1s linear infinite; -webkit-animation: auto-circle 1s linear infinite; -moz-animation: auto-circle 1s linear infinite; -o-animation: auto-circle 1s linear infinite; display: inline-block; vertical-align: middle; }
+.loadingImg span { display: block; border-radius: 100%; /*-webkit-border-radius: 100%; -moz-border-radius: 100%; -o-border-radius: 100%;*/ position: absolute; width: 2px; height: 50%; left: 50%; top: 0%; margin-left: -1px;-webkit-transform-origin: center bottom;  transform-origin: center bottom; /*-moz-transform-origin: center bottom; -o-transform-origin: center bottom; */}
+.loadingImg span:before { content: ' '; display: block; height: 60%; width: 2px; background: #333; margin: 0 0 0 0; }
+.loadingImg span:nth-child(1) { /*filter: alpha(opacity=100);*/ opacity: 1; }
+.loadingImg span:nth-child(2) { -webkit-transform: rotate(-45deg);  transform: rotate(-45deg); /*-moz-transform: rotate(-45deg);-o-transform: rotate(-45deg); filter: alpha(opacity=90);*/ opacity: 0.9; }
+.loadingImg span:nth-child(3) { -webkit-transform: rotate(-90deg);  transform: rotate(-90deg);/*-moz-transform: rotate(-90deg); -o-transform: rotate(-90deg); filter: alpha(opacity=80);*/ opacity: 0.8; }
+.loadingImg span:nth-child(4) { -webkit-transform: rotate(-135deg);  transform: rotate(-135deg); /*-moz-transform: rotate(-135deg);-o-transform: rotate(-135deg); filter: alpha(opacity=70);*/ opacity: 0.7; }
+.loadingImg span:nth-child(5) { -webkit-transform: rotate(180deg); transform: rotate(180deg); /*-moz-transform: rotate(180deg); -o-transform: rotate(180deg); filter: alpha(opacity=60);*/ opacity: 0.6; }
+.loadingImg span:nth-child(6) { -webkit-transform: rotate(135deg); transform: rotate(135deg); /*-moz-transform: rotate(135deg); -o-transform: rotate(135deg); filter: alpha(opacity=50);*/ opacity: 0.5; }
+.loadingImg span:nth-child(7) { -webkit-transform: rotate(90deg); transform: rotate(90deg); /*-moz-transform: rotate(90deg); -o-transform: rotate(90deg); filter: alpha(opacity=40);*/ opacity: 0.4; }
+.loadingImg span:nth-child(8) { -webkit-transform: rotate(45deg); transform: rotate(45deg); /*-moz-transform: rotate(45deg); -o-transform: rotate(45deg); filter: alpha(opacity=30);*/ opacity: 0.3; }
+
+.in {
+	-webkit-animation-timing-function: ease-out;
+	-webkit-animation-duration: 350ms;
+	animation-timing-function: ease-out;
+	animation-duration: 350ms;
+}
+.out {
+	-webkit-animation-timing-function: ease-in;
+	-webkit-animation-duration: 225ms;
+	animation-timing-function: ease-in;
+	animation-duration: 225ms;
+}
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+/*@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}*/
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@-webkit-keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+@keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+.fade.out {
+	opacity: 0;
+	-webkit-animation-duration: 125ms;
+	-webkit-animation-name: fadeout;
+	animation-duration: 125ms;
+	animation-name: fadeout;
+}
+.fade.in {
+	opacity: 1;
+	-webkit-animation-duration: 225ms;
+	-webkit-animation-name: fadein;
+	animation-duration: 225ms;
+	animation-name: fadein;
+}
+.pop {
+	-webkit-transform-origin: 50% 50%;
+	transform-origin: 50% 50%;
+}
+.pop.in {
+	-webkit-transform: scale(1);
+	-webkit-animation-name: popin;
+	-webkit-animation-duration: 350ms;
+	transform: scale(1);
+	animation-name: popin;
+	animation-duration: 350ms;
+    opacity: 1;
+}
+.pop.out {
+	-webkit-animation-name: fadeout;
+	-webkit-animation-duration: 100ms;
+	animation-name: fadeout;
+	animation-duration: 100ms;
+	opacity: 0;
+}
+.pop.in.reverse {
+	-webkit-animation-name: fadein;
+	animation-name: fadein;
+}
+.pop.out.reverse {
+	-webkit-transform: scale(.8);
+	-webkit-animation-name: popout;
+	transform: scale(.8);
+	animation-name: popout;
+}
+@-webkit-keyframes popin {
+    from {
+        -webkit-transform: scale(.8);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes popin {
+    from {
+        transform: scale(.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@-webkit-keyframes popout {
+    from {
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        -webkit-transform: scale(.8);
+        opacity: 0;
+    }
+}
+@keyframes popout {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(.8);
+        opacity: 0;
+    }
+}
+@-webkit-keyframes slideinfromright {
+    from { -webkit-transform: translateX(100%); }
+    to { -webkit-transform: translateX(0); }
+}
+@keyframes slideinfromright {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+@-webkit-keyframes slideinfromleft {
+    from { -webkit-transform: translateX(-100%); }
+    to { -webkit-transform: translateX(0); }
+}
+@keyframes slideinfromleft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+@-webkit-keyframes slideouttoleft {
+    from { -webkit-transform: translateX(0); }
+    to { -webkit-transform: translateX(-100%); }
+}
+@keyframes slideouttoleft {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+@-webkit-keyframes slideouttoleft50 {
+    from { -webkit-transform: translateX(0); }
+    to { -webkit-transform: translateX(-50%); }
+}
+@keyframes slideouttoleft50 {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+@-webkit-keyframes slideouttoright {
+    from { -webkit-transform: translateX(0); }
+    to { -webkit-transform: translateX(100%); }
+}
+@keyframes slideouttoright {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+}
+.slide.out, .slide.in, .slide.out50 {
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-duration: 350ms;
+    animation-timing-function: ease-out;
+    animation-duration: 350ms;
+}
+.slide.out, .slide.in, .slide.out50, .slideup.out, .slideup.in {
+    /* 防闪烁，还未测试 */
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    /*-webkit-perspective: 1000;
+    perspective: 1000;
+    opacity:1;*/
+}
+.slide.out {
+	-webkit-transform: translateX(-100%);
+	-webkit-animation-name: slideouttoleft;
+	transform: translateX(-100%);
+	animation-name: slideouttoleft;
+}
+.slide.out50 {
+	-webkit-transform: translateX(-50%);
+	-webkit-animation-name: slideouttoleft50;
+	transform: translateX(-50%);
+	animation-name: slideouttoleft50;
+}
+.slide.in {
+	-webkit-transform: translateX(0);
+	-webkit-animation-name: slideinfromright;
+	transform: translateX(0);
+	animation-name: slideinfromright;
+}
+.slide.out.reverse {
+	-webkit-transform: translateX(100%);
+	-webkit-animation-name: slideouttoright;
+    transform: translateX(100%);
+	animation-name: slideouttoright;
+}
+.slide.in.reverse {
+	-webkit-transform: translateX(0);
+	-webkit-animation-name: slideinfromleft;
+    transform: translateX(0);
+	animation-name: slideinfromleft;
+}
+.slidefade.out {
+	-webkit-transform: translateX(-100%);
+	-webkit-animation-name: slideouttoleft;
+    -webkit-animation-duration: 225ms;
+	transform: translateX(-100%);
+	animation-name: slideouttoleft;
+	animation-duration: 225ms;
+}
+.slidefade.in {
+	-webkit-transform: translateX(0);
+	-webkit-animation-name: fadein;
+    -webkit-animation-duration: 200ms;
+	transform: translateX(0);
+	animation-name: fadein;
+	animation-duration: 200ms;
+}
+.slidefade.out.reverse {
+	-webkit-transform: translateX(100%);
+	-webkit-animation-name: slideouttoright;
+    -webkit-animation-duration: 200ms;
+	transform: translateX(100%);
+	animation-name: slideouttoright;
+	animation-duration: 200ms;
+}
+.slidefade.in.reverse {
+	-webkit-transform: translateX(0);
+	-webkit-animation-name: fadein;
+    -webkit-animation-duration: 200ms;
+	transform: translateX(0);
+	animation-name: fadein;
+	animation-duration: 200ms;
+}
+.slidedown.out {
+	-webkit-animation-name: fadeout;
+    -webkit-animation-duration: 100ms;
+	animation-name: fadeout;
+	animation-duration: 100ms;
+}
+.slidedown.in {
+	-webkit-transform: translateY(0);
+	-webkit-animation-name: slideinfromtop;
+    -webkit-animation-duration: 250ms;
+	transform: translateY(0);
+	animation-name: slideinfromtop;
+	animation-duration: 250ms;
+}
+.slidedown.in.reverse {
+	-webkit-animation-name: fadein;
+    -webkit-animation-duration: 150ms;
+	animation-name: fadein;
+	animation-duration: 150ms;
+}
+.slidedown.out.reverse {
+	-webkit-transform: translateY(-100%);
+    -webkit-animation-name: slideouttotop;
+    -webkit-animation-duration: 200ms;
+	transform: translateY(-100%);
+	animation-name: slideouttotop;
+	animation-duration: 200ms;
+}
+@-webkit-keyframes slideinfromtop {
+    from { -webkit-transform: translateY(-100%); }
+    to { -webkit-transform: translateY(0); }
+}
+@keyframes slideinfromtop {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+@-webkit-keyframes slideouttotop {
+    from { -webkit-transform: translateY(0); }
+    to { -webkit-transform: translateY(-100%); }
+}
+@keyframes slideouttotop {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100%); }
+}
+/*.slideup.out {
+	-webkit-animation-name: fadeout;
+	animation-name: fadeout;
+	-webkit-animation-duration: 100ms;
+	animation-duration: 100ms;
+}*/
+.slideup.out,.slideup.in{  
+    -webkit-animation-duration: 500ms;
+	/*-moz-animation-duration: 500ms;*/
+    animation-duration: 500ms;
+    -webkit-transition-timing-function:ease-in;
+    transition-timing-function:ease-in;
+    
+}
+.slideup.out {
+	-webkit-animation-name: slideouttotop;
+    animation-name: slideouttotop;	
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);   
+}
+.slideup.in {
+	-webkit-transform: translateY(0);
+	-webkit-animation-name: slideinfrombottom;
+    transform: translateY(0);
+	animation-name: slideinfrombottom;
+}
+.slideup.out.fast,.slideup.in.fast{
+    -webkit-animation-duration: 200ms;
+    animation-duration: 200ms;
+}
+.slideup.in.reverse {
+	-webkit-animation-name: fadein;
+    animation-name: fadein;
+	-webkit-animation-duration: 150ms;
+    animation-duration: 150ms;
+}
+.slideup.out.reverse {
+	-webkit-transform: translateY(100%);
+    transform: translateY(100%);
+	-webkit-animation-name: slideouttobottom;
+    animation-name: slideouttobottom;
+}
+@-webkit-keyframes slideinfrombottom {
+    from { -webkit-transform: translateY(100%); }
+    to { -webkit-transform: translateY(0); }
+}
+@keyframes slideinfrombottom {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+@-webkit-keyframes slideouttobottom {
+    from { -webkit-transform: translateY(0); }
+    to { -webkit-transform: translateY(100%); }
+}
+@keyframes slideouttobottom {
+    from { transform: translateY(0); }
+    to { transform: translateY(100%); }
+}
+/* message tip */
+/*#msgtipdiv { width: 90%; height: 27px; position: absolute; left: 50%; top: 20px; display: block; margin-left: -45%; z-index: 10001; text-align: center; overflow: hidden; }*/
+#msgtipdiv { position: absolute; position: fixed; width: 90%; height: 80px; left: 50%; top: 50%; display: none; margin-left: -45%; margin-top: -80px; z-index: 100001; text-align: center; /*overflow: hidden;*/ }
+#msgtipdiv a { color: #fff; }
+#msgtipdiv a:hover { color: Red; }
+/*.info, .succmsg, .errmsg { border-radius: 3px; color: #FFFFFF; display: inline-block; padding: 0px 24px; height: 24px; line-height: 24px; background: #68AF02; color: #fff; letter-spacing: 1px; text-align: center; }*/
+#msgtipdiv .info, #msgtipdiv .succmsg, #msgtipdiv .errmsg { -webkit-transition: -webkit-transform 0.3s linear; transition: transform 0.3s linear; border-radius: 8px; color: #e5e5e5; display: inline-block; padding: 14px 24px; line-height: 24px; background: #000; letter-spacing: 1pt; text-align: center; font-size: 16px; font-weight: 700; opacity: 0.7;}
+#msgtipdiv .succmsg { background-color: #68AF02; }
+#msgtipdiv .errmsg { background-color: #FF0000; color:#fdfdfd; }
+#msgtipdiv.scale .info, #msgtipdiv.scale .succmsg, #msgtipdiv.scale .errmsg{-webkit-transform:scale(0.9,0.9);transform:scale(0.9,0.9);}
+
+.wrapper {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+}
+.wrapper.pc{
+    overflow:inherit;
+    /*overflow:auto;*/
+}
+.scroller {
+    position: relative;
+    /*width: 100%;*/
+    padding: 0;
+    /* 防闪烁，还未测试 */
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+    opacity:1;
+}
+
+/*底部弹窗*/
+.bottomPopMenu{   
+    /*height:100%;*/
+}
+.bottomPopMenu ul{ padding:0 25px; margin:0 10px 6px 10px;background:#fff;
+    border-radius:5px;/*border-top:solid 1px #C8C5CB;*/ }
+.bottomPopMenu li{
+    height:45px;
+    line-height:45px;
+    text-align:center;
+    border-bottom:solid 1px #E7E5E1;
+    font-size:20px;
+    cursor:pointer;
+    color:#3092FE;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+.bottomPopMenu li:last-child{border-bottom:none;}
+.bottomPopMenu li.cancelPopItem{}
+/*.bottomPopMenu li:active{ color:red;}*/
+/*.bottomPopMenu li.cancelPopItem:hover{ color:red;}*/
+
+/*箭头窗口*/
+.toolwnd{
+    
+}
+.toolwnd ul{
+    padding:0 10px;
+}
+.toolwnd li{
+    height:40px;
+    line-height:40px;
+    text-align:center;
+    border-bottom:solid 1px #E7E5E1/*#C8C7CC*/;
+    color:#3092FE;
+    cursor: pointer;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+.toolwnd li:last-child{
+     border-bottom:none;
+}
+/*
+#pdfViewerOuter{
+    background:#fff;
+}
+
+#pdfViewerOuter .b{
+    height: 44px;
+    line-height: 44px;
+    cursor: move;
+    overflow: hidden;
+    width: 100%;
+    background:#F0F0F0;
+    border-top:solid 1px #D7D7D7;
+    position:absolute;
+    bottom:0;
+    z-index:111;
+}
+#pdfViewerOuter .btns{
+    position: absolute;
+        top: 0px;
+        right: 0px;
+}
+    #pdfViewerOuter .b button {
+        background: transparent;
+        border: none;
+        outline: none;
+        padding: 0 10px;
+        height: 30px;
+        line-height:30px;
+        margin: 5px 5px 0 0;
+        border:solid 1px #1384FA;
+        border-radius:5px;
+        color:#1384FA;
+        float:right;
+    }
+#pdfViewerOuter .b .i{
+    padding-left:20px;
+    padding-right: 130px;
+    display: block;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+font-size: 18px;
+}
+#pdfViewerOuter .pretip,#pdfViewerOuter .nexttip{
+    position: absolute;
+  left: 50%;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  letter-spacing: 0.1em;
+  color: #007AFF;
+  min-height: 50px;
+  min-width: 50px;
+  z-index: 999;
+  margin-left: -16px;
+  display:none;
+}
+#pdfViewerOuter .pretip{
+    top:0;
+}
+#pdfViewerOuter .nexttip{
+    bottom:35px;
+}
+#pdfViewerOuter .pretip::before, #pdfViewerOuter .pretip::after,#pdfViewerOuter .nexttip::before, #pdfViewerOuter .nexttip::after{
+content:"";background:#007AFF;
+    width:2px; height:20px;
+    display:inline-block;
+    position:absolute;
+}
+#pdfViewerOuter .pretip::before{
+    -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg);
+      top: 10px;
+  left: 0px;
+}
+#pdfViewerOuter .pretip::after{
+    -webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg); -o-transform: rotate(-45deg); transform: rotate(-45deg); 
+    top: 10px;
+  left: 14px;
+}
+#pdfViewerOuter .nexttip::before{
+    -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg);
+      top: 10px;
+  left: 14px;
+}
+#pdfViewerOuter .nexttip::after{
+    -webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg); -o-transform: rotate(-45deg); transform: rotate(-45deg); 
+    top: 10px;
+  left: 0;
+}
+*/
