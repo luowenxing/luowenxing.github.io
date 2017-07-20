@@ -312,6 +312,16 @@
         var hasClass = function ($el, className) {
             return $el.className.split(' ').indexOf(className) >= 0
         };
+        var findParent = function ($node, $root, condition) {
+            while ($node && ($node != $root)) {
+                if (condition($node)) {
+                    return $node
+                }
+                $node = $node.parentNode
+            }
+            return null;
+        };
+
         [].slice.call($lists).forEach(function ($e) {
             var $touchedLi, $touchedPrevLi, moved = false;
             $e.addEventListener('touchstart', function (e) {
@@ -331,12 +341,13 @@
                 $touchedLi.className = '';
                 $touchedPrevLi && ($touchedPrevLi.className = '')
                 if (!moved) {
-                    var target = e.target.parentNode, node;
-                    if (hasClass(target, 'list-item')
-                        || (hasClass(target.parentNode, 'list-item')
-                        && (target = target.parentNode))) {
+                    var target = e.target, node;
+                    var $listItem = findParent(target,$e,function($node) {
+                        return hasClass($node,'list-item')       
+                    })
+                    if($listItem) {
                         MobileJS.showContactsUserInfo({
-                            id: target.getAttribute('data-id')
+                            id: $listItem.getAttribute('data-id')
                         })
                     }
                 }
