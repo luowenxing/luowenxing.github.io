@@ -1,0 +1,61 @@
+button {
+    border-radius:4px;
+    border:1px solid #dfdfdf;
+    background-color:white;
+    cursor:pointer;
+    padding:8px;
+    color:black;
+    outline:none;
+    user-select:none;
+    -webkit-user-select:none;
+}
+button:hover {
+    color:#20a0ff;
+    border-color:#20a0ff;
+}
+.control-panel button {
+    margin:0px 4px;
+}
+.control-panel {
+    margin: 8px 0px;
+    margin-left: -4px;
+}
+.map {
+	border-collapse: collapse;
+}
+.map tr {
+	height: 32px;
+}
+.map tr td {
+	width: 29px;
+    border: 1px solid #DFDFDF;
+    text-align: center;
+    font-size: 20px;
+    position:relative;
+    cursor:pointer;
+    user-select:none;
+    -webkit-user-select:none;
+}
+.map tr td:hover, .map tr td.win-indication{
+	opacity: 0.6
+}
+.map tr td.step-on:hover,.map tr td.step-on{
+	opacity: 1 !important;
+}
+
+	
+.map tr td:hover::after,.map tr td.win-indication::after {
+	display:block;
+	position: absolute;
+	top:1px;
+	left:6px;
+}
+.map.black-turn tr td:hover::after,.map.black-turn tr td.win-indication::after {
+	content:"⚫";
+}
+.map.white-turn tr td:hover::after,.map.white-turn tr td.win-indication::after {
+	content:"⚪";
+}
+.map tr td.step-on:hover::after,.map tr td.step-on::after {
+	content:"" !important;
+}
