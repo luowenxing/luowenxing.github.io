@@ -134,6 +134,4 @@
 
     exports.GameRenderer = GameRenderer
 })(window)
-
-
    

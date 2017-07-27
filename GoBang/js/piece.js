@@ -10,3 +10,4 @@
 
 	exports.Piece = Piece
 })(window)
+
