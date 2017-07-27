@@ -67,8 +67,8 @@
     Game.prototype.stepOn = function (x, y) {
         // 只有在游戏中时才能下棋
         if (this.isPlaying()) {
-            var player = this.getCurrentPlayer()
-            var piece = player.stepOn(x, y)
+            var player = this.getCurrentPlayer(),
+                piece = player.stepOn(x, y)
             // 清空悔棋
             this.players.forEach(function (player) {
                 player.regretPieces = []
@@ -95,8 +95,8 @@
     // 悔棋
     Game.prototype.stepOff = function () {
         if (this.isPlaying()) {
-            var player = this.getPrevPlayer()
-            var piece = player.stepOff()
+            var player = this.getPrevPlayer(),
+                piece = player.stepOff()
             this.stepsCount--
             this.renderer.reRenderPiece(null, piece.x, piece.y)
             this.renderer.reRenderIndications(false)
@@ -106,8 +106,8 @@
     // 撤销悔棋
     Game.prototype.regretStepOff = function () {
         if (this.isPlaying()) {
-            var player = this.getCurrentPlayer()
-            var piece = player.regretStepOff()
+            var player = this.getCurrentPlayer(),
+                piece = player.regretStepOff()
             this.stepsCount++
             this.renderer.reRenderPiece(piece, piece.x, piece.y)
             this.renderer.reRenderIndications(false)

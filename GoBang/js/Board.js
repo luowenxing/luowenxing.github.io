@@ -23,7 +23,8 @@
 
     // 在某一点落子
     Board.prototype.stepOn = function (piece) {
-        var x = piece.x, y = piece.y
+        var x = piece.x, 
+            y = piece.y
         if (!this.map[x][y]) {
             this.map[x][y] = piece
             return this.map[x][y]
@@ -39,21 +40,28 @@
 
     // 判断是否赢棋，落子时判断
     Board.prototype.checkWin = function (piece) {
-        var x = piece.x, y = piece.y,
-            originX = x, originY = y,
-            map = this.map, size = this.size
-            isWin = false, that = this
+        var x = piece.x, 
+            y = piece.y,
+            originX = x, 
+            originY = y,
+            map = this.map, 
+            size = this.size,
+            isWin = false, 
+            that = this
 
         orientationsGroup.forEach(function (orientations) {
             // 计算横竖交叉四个方向的最大长度
             var maxLength = 0,
-            nextPositions = [],
-            detectWinRange = []
+                nextPositions = [],
+                detectWinRange = []
 
             if (!isWin) {
                 orientations.forEach(function (orientation, direction) {
-                    var x = originX, y = originY, index = 0,
-                        xOri = orientation[0], yOri = orientation[1]
+                    var x = originX, 
+                        y = originY, 
+                        index = 0,
+                        xOri = orientation[0], 
+                        yOri = orientation[1]
                     // 先把重复的位置删除
                     detectWinRange.pop()
                     while (x >= 0 && x < size && y >= 0 && y < size && index++ < 5) {
@@ -86,7 +94,8 @@
     // 添加赢棋提示
     Board.prototype.addWinIndications = function (piece, detectWinRange) {
         var size = detectWinRange.length - 4,
-            map = this.map, matchedCount = 0, freePosition = null
+            map = this.map, matchedCount = 0, 
+            freePosition = null
         for (var i = 0; i < size ; i++) {
             matchedCount = 0
             freePosition = null

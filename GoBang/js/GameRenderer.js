@@ -53,10 +53,10 @@
     // 初始化控制台
     GameRenderer.prototype._initControl = function () {
         var $ctlPanel = $c('div'),
-        $btnStepOff = $c('button'),
-        $btnRegretStepOff = $c('button'),
-        $btnRestart = $c('button')
-        game = this.game
+            $btnStepOff = $c('button'),
+            $btnRegretStepOff = $c('button'),
+            $btnRestart = $c('button'),
+            game = this.game
         $ctlPanel.className = 'control-panel'
         $btnStepOff.className = 'btn-stepoff'
         $btnRegretStepOff.className = 'btn-regret-stepoff'
@@ -86,14 +86,10 @@
 
     // 渲染游戏控制界面
     GameRenderer.prototype.reRenderControl = function () {
-        var game = this.game,
-        btnStepOffVisible = game.totalPieces() > 0 ? 'visible' : 'hidden',
-        btnRegretStepOffVisible = game.totalRegretPieces() > 0 ? 'visible' : 'hidden'
-        this.$btnStepOff.style.visibility = btnStepOffVisible
-        this.$btnRegretStepOff.style.visibility = btnRegretStepOffVisible
         // css 标志棋盘当前由谁下，配合css hover after 实现下棋位置提示
-        var clsName = game.getCurrentPlayer().isBlack ? 'black-turn' : 'white-turn'
-        var clsList = this.$table.classList
+        var game = this.game,
+            clsName = game.getCurrentPlayer().isBlack ? 'black-turn' : 'white-turn',
+            clsList = this.$table.classList
         clsList.remove('black-turn', 'white-turn')
         clsList.add(clsName)
     }
@@ -118,8 +114,8 @@
 
     // 渲染提示赢棋
     GameRenderer.prototype.reRenderIndications = function (win) {
-        var game = this.game, that
-        currentPlayer = game.getCurrentPlayer()
+        var game = this.game,
+            currentPlayer = game.getCurrentPlayer()
         this.$prevIndications.forEach(function ($td) {
             $td.classList.remove('win-indication')
         })
