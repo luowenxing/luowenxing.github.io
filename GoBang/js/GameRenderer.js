@@ -72,8 +72,6 @@
         this.$el.appendChild($ctlPanel)
         this.$btnStepOff = $btnStepOff
         this.$btnRegretStepOff = $btnRegretStepOff
-        this.$btnStepOff.style.visibility = 'hidden'
-        this.$btnRegretStepOff.style.visibility = 'hidden'
     }
 
     // 清空棋盘DOM
